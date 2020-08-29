@@ -4,7 +4,7 @@ document.getElementById('img-container').addEventListener('mouseover', function(
 })
 
 function imageZoom(imgID){
-	let img = document.getElementById('imgID')
+	let img = document.getElementById(imgID)
 	let lens = document.getElementById('lens')
 
 	lens.style.backgroundImage = `url(${img.src})`

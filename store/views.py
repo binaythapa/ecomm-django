@@ -41,7 +41,7 @@ def cart(request):
     order = Data['order']
     items = Data['items']
 
-    return render(request, 'store/cart.html', {'items': items, 'order': order, 'cartItems': cartItems})
+    return render(request, 'store/Cart.html', {'items': items, 'order': order, 'cartItems': cartItems})
 
 
 def updateItem(request):

@@ -1,7 +1,7 @@
 
 
 body{
-	padding-top: 100px;
+	/* padding-top: 100px; */
 }
 
 #content-wrapper{
@@ -20,9 +20,9 @@ body{
 #featured{
 	max-width: 500px;
 	max-height: 600px;
-
+	border-radius: 10px;
 	cursor: pointer;
-	border: 2px solid black;
+	border: 1px solid #e0e0e0;
 
 }
 
@@ -104,10 +104,10 @@ body{
 #lens{
 	z-index: 2;
 	position: absolute;
-
 	height: 125px;
 	width: 125px;
-	border:2px solid black;
+	border-radius: 50%;
+	border:1px solid #dedede;
 	background-repeat: no-repeat;
 	cursor: none;
 
