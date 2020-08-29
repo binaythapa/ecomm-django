@@ -1,0 +1,56 @@
+{% extends 'store/index.html' %}
+{% load static %}
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{request.user.username}}</td>
+      <td>{{request.user.email}}</td>
+      <td>{{request.user.customer.phone}}</td>
+        <td><a href="edit_profile">edit</a></td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+
+      <div class="row jumbotron">
+            <div class="col">
+                <h1>Your Pending Order</h1>
+            </div>
+            <div class="col">
+                <h1>Your Successful Order</h1>
+            </div>
+      </div>
+
+
+
+<div class="row">
+		{% for product in product  %}
+		<div class="col-lg-4">
+			<img class="thumbnail" src="{{product.imageURL}}">
+			<div class="box-element product">
+				<h6><strong>{{product.name}}</strong></h6>
+				<hr>
+				<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+				<a class="btn btn-outline-success" href="{% url 'show-detail' product.id %}">View</a>
+
+				<h4 style="display: inline-block; float: right"><strong>{{product.price}}</strong></h4>
+			</div>
+		</div>
+
+		{% endfor %}
+
+
+
+<script>
+</script>
+{% endblock%}

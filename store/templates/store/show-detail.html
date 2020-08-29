@@ -1,0 +1,100 @@
+{% extends 'store/index.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+{% endblock %}
+
+{% block content %}
+	<div id="content-wrapper">
+		<div class="column">
+			<div id="img-container">
+				<div id="lens"></div>
+				<img id=featured src="{{data.imageURL}}">
+			</div>
+			<div id="slide-wrapper">
+				<img id="slideLeft" class="arrow" src="{% static 'images/arrow-left.png' %}">
+
+				<div id="slider">
+
+					<img class="thumbnail active" src="{{data.imageB}}">
+
+					<img class="thumbnail" src="{{data.imageL}}">
+					<img class="thumbnail" src="{{data.imageR}}">
+		
+				</div>
+
+				<img id="slideRight" class="arrow" src="{% static 'images/arrow-right.png' %}">
+			</div>
+		</div>
+
+		<div class="column">
+			<h1>{{data.name}}</h1>
+			<hr>
+			<h3>{{data.price}}</h3>
+
+			<p>{{data.details}}</p>
+
+			<input value=1 type="number">
+			<button data-product={{data.id}} data-action="add" class="btn btn-dark add-btn update-cart">Add to Cart</button>
+
+		</div>
+
+
+
+
+	</div>
+ <h1>Feedback</h1>
+{% for review in review %}
+  <div class="row">
+    <div class="col-sm-2" style="background-color:yellow;">
+			{{review.user.username}}
+    </div>
+    <div class="col-sm-10" style="background-color:pink;">
+      {{review.userComment}}
+    </div>
+  </div>
+<br>
+{% endfor %}
+<br>
+
+
+<div class="row">
+    <div class="col-sm-2" style="background-color:yellow;">
+		{% csrf_token %}
+
+	{{request.user}}
+    </div>
+    <div class="col-sm-10" style="background-color:pink;">
+      <form method="POST">{% csrf_token %}
+    {{ form.as_p }}
+		   <input type="hidden" id="Id" name="productid" value="{{data.id}}">
+    <input type="submit" >
+</form>
+
+    </div>
+
+  </div>
+
+<br>
+
+
+<div class="row">
+		{% for product in product  %}
+		<div class="col-lg-4">
+			<img class="thumbnail" src="{{product.imageURL}}">
+			<div class="box-element product">
+				<h6><strong>{{product.name}}</strong></h6>
+				<hr>
+				<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+				<a class="btn btn-outline-success" href="{% url 'show-detail' product.id %}">View</a>
+
+				<h4 style="display: inline-block; float: right"><strong>{{product.price}}</strong></h4>
+			</div>
+		</div>
+
+		{% endfor %}
+
+	<script type="text/javascript" src="{% static 'js/slider.js' %}" ></script>
+	<script type="text/javascript" src="{% static 'js/script.js' %}" ></script>
+
+{% endblock%}
