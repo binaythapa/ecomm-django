@@ -13,9 +13,29 @@ h1,h2,h3,h4,h5,h6{
 	padding: 10px;
 }
 
-.products-container .slick-track {
-	/* transition: all 0.7s ease; */
+
+.products-container .slick-arrow {
+	position: absolute;
+	opacity: 0;
+	z-index: 2;
+	transition: all 0.5s ease;
 }
+
+
+.products-container .slick-next {
+	top: 50%;
+	right: -10px;
+}
+
+.products-container .slick-prev {
+	top: 50%;
+	left: -10px;
+}
+
+.products-container:hover .slick-arrow {
+	opacity: 1;
+}
+
 
 .products-container .product-card {
 	margin: 0 10px;
