@@ -13,12 +13,34 @@ h1,h2,h3,h4,h5,h6{
 	padding: 10px;
 }
 
-.thumbnail{
+.products-container .slick-track {
+	/* transition: all 0.7s ease; */
+}
+
+.products-container .product-card {
+	margin: 0 10px;
+	cursor: pointer;
+	transition: transform 0.5s ease;
+	-webkit-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+	-moz-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+	box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);	
+}
+
+.products-container .product-card:hover {
+	transform: translateY(-1px);
+}
+
+.products-container .product-card .thumbnail {
+	opacity: 0.9;
+	border-radius: 5px 5px 0 0;
 	width: 100%;
 	height: 200px;
-	-webkit-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
-    -moz-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
-    box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+	transition: all 0.5s ease;
+	
+}
+
+.products-container .product-card .thumbnail:hover {
+	opacity: 1;
 }
 
 .product{

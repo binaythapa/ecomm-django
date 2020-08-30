@@ -33,7 +33,7 @@ def checkout(request):
     cartItems = Data['cartItems']
     order = Data['order']
     items = Data['items']
-    return render(request, 'store/CheckOut.html', {'item': items, 'order': order,'cartItems': cartItems,'shipping': False})
+    return render(request, 'store/Checkout.html', {'item': items, 'order': order,'cartItems': cartItems,'shipping': False})
 
 def cart(request):
     Data = cartData(request)

@@ -1,9 +1,9 @@
 {% extends 'store/index.html' %}
 {% load static %}
 {% block content %}
-	<div class="row jumbotron">
+	<div class="row jumbotron products-container">
 		{% for product in product  %}
-		<div class="col-lg-4">
+		<div class="product-card">
 			<img class="thumbnail" src="{{product.imageURL}}">
 			<div class="box-element product">
 				<h6><strong>{{product.name}}</strong></h6>
@@ -20,5 +20,13 @@
 
 
 <script>
+jQuery('.products-container').slick({
+	slidesToShow: 4,
+  slidesToScroll: 2,
+  autoplay: true,
+  autoplaySpeed: 2000,
+	{% comment %} speed: 100, {% endcomment %}
+});
+console.log(document.querySelector('.products-container'));
 </script>
 {% endblock%}
