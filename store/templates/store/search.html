@@ -20,12 +20,14 @@
 
 
 <script>
+ {% comment %} const a = {% static 'images/arrow-up.png' %} {% endcomment %}
 jQuery('.products-container').slick({
 	slidesToShow: 4,
   slidesToScroll: 2,
   autoplay: true,
   autoplaySpeed: 2000,
-	{% comment %} speed: 100, {% endcomment %}
+	nextArrow: "<img src=\"{% static 'images/arrow-up.png' %}\" class='slick-next' >",
+	prevArrow: "<img src=\"{% static 'images/arrow-up.png' %}\" class='slick-prev' >",
 });
 console.log(document.querySelector('.products-container'));
 </script>
