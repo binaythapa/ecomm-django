@@ -50,10 +50,10 @@
 
 <script>
  function updateProfile(){
- console.log("Hello binay")
+
    document.getElementById("table1").innerHTML='';
    document.getElementById("demo").innerHTML +=
-   `<table class="table">
+   `<table class="table" id="table1">
   <thead>
     <tr>
       <th scope="col">Name</th>
@@ -62,8 +62,26 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+    <form name="myform" id="myform">
+      <td><input type="text" name="name" value="{{request.user.username}}"></td>
+      <td><input type="gmail" name="email" value="{{request.user.email}}"></td>
+      <td><input type="text" name="contact" value="{{request.user.customer.phone}}"></td>
+       <td> <button onclick="submitform()">Submit</button></td>
+        </form>
+    </tr>
   </tbody>
 </table>`;
    }
+
+
+function submitform(){
+console.log("Hello binay")
+
+formdata= document.getElementById("myform")
+console.log(formdata)
+
+
+}
 </script>
 {% endblock%}
