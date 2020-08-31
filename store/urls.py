@@ -12,6 +12,7 @@ urlpatterns = [
     path('process_order/', views.processOrder, name= 'process_order'),
     path('show/<int:pk>', views.showdetail, name='show-detail'),
     path('query', views.search, name='search'),
-    path('profile', views.profile, name='profile')
+    path('profile', views.profile, name='profile'),
+    path('collection/<int:id>', views.collection, name='collection')
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

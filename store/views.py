@@ -24,8 +24,9 @@ def store(request):
     Data = cartData(request)
     cartItems = Data['cartItems']
 
+    catagory= SubCatagory.objects.all()
     product = Product.objects.all()
-    return render(request, 'store/search.html',{'product': product, 'cartItems': cartItems})
+    return render(request, 'store/store.html',{'product': product, 'cartItems': cartItems,'catagory':catagory})
 
 
 def checkout(request):
@@ -33,26 +34,23 @@ def checkout(request):
     cartItems = Data['cartItems']
     order = Data['order']
     items = Data['items']
-    return render(request, 'store/Checkout.html', {'item': items, 'order': order,'cartItems': cartItems,'shipping': False})
+    catagory = SubCatagory.objects.all()
+    return render(request, 'store/Checkout.html', {'item': items, 'order': order,'cartItems': cartItems,'shipping': False, 'catagory': catagory})
 
 def cart(request):
     Data = cartData(request)
     cartItems = Data['cartItems']
     order = Data['order']
     items = Data['items']
+    catagory = SubCatagory.objects.all()
 
-    return render(request, 'store/Cart.html', {'items': items, 'order': order, 'cartItems': cartItems})
+    return render(request, 'store/Cart.html', {'items': items, 'order': order, 'cartItems': cartItems, 'catagory':catagory})
 
 
 def updateItem(request):
     data= json.loads(request.body)
     productId = data['productId']
     action= data['action']
-
-    print('Action:', action)
-    print('productId:', productId)
-    print("Product id and action are send to backend successfully")
-
     customer = request.user.customer
     product= Product.objects.get(id= productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -118,8 +116,6 @@ def processOrder(request):
 
 
 
-
-
 def showdetail(request, pk):
     data = Product.objects.get(pk=pk)
     form = userReviewForm(request.POST or None)
@@ -137,10 +133,16 @@ def showdetail(request, pk):
     Data = cartData(request)
     cartItems = Data['cartItems']
 
-    review= userReview.objects.all()
-    product= Product.objects.all()
 
-    return render(request, 'store/show-detail.html', {'data':data, 'cartItems': cartItems, 'form': form, 'review': review,'product':product })
+    product= Product.objects.all()
+    catagory = SubCatagory.objects.all()
+
+    try:
+        review = userReview.objects.filter(product=pk)
+    except:
+        review= {}
+
+    return render(request, 'store/show-detail.html', {'data':data, 'cartItems': cartItems, 'form': form, 'review': review,'product':product,'catagory':catagory })
 
 
 def profile(request):
@@ -148,7 +150,16 @@ def profile(request):
     cartItems = Data['cartItems']
 
     product= Product.objects.all()
+    catagory = SubCatagory.objects.all()
 
     #orderitem= Orderitem.objects.all()
 
-    return render(request, 'store/profile.html',{'product': product, 'cartItems': cartItems})
+    return render(request, 'store/profile.html',{'product': product, 'cartItems': cartItems,'catagory':catagory})
+
+def collection(request,id):
+    Data = cartData(request)
+    cartItems = Data['cartItems']
+    catagory = SubCatagory.objects.all()
+
+    product= Product.objects.filter(subcatagory=id)
+    return render(request, 'store/catagory_product.html', {'product': product, 'cartItems': cartItems,'catagory':catagory})
