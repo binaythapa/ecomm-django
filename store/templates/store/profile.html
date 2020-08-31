@@ -15,7 +15,7 @@
       <td>{{request.user.username}}</td>
       <td>{{request.user.email}}</td>
       <td>{{request.user.customer.phone}}</td>
-        <td><button onclick="update_profile()">edit</button></td>
+        <td><button onclick="updateProfile()">edit</button></td>
     </tr>
   </tbody>
 </table>
@@ -49,12 +49,21 @@
 
 
 <script>
- function update_profile(){
+ function updateProfile(){
+ console.log("Hello binay")
    document.getElementById("table1").innerHTML='';
-
    document.getElementById("demo").innerHTML +=
-   "hello binay";
-
+   `<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>`;
    }
 </script>
 {% endblock%}
