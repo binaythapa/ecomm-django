@@ -1,5 +1,7 @@
 import json
 import datetime
+from math import ceil
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -21,13 +23,43 @@ def search(request):
 
 
 def store(request):
+    """
     Data = cartData(request)
     cartItems = Data['cartItems']
-
     catagory= SubCatagory.objects.all()
-    product = Product.objects.all()
-    return render(request, 'store/store.html',{'product': product, 'cartItems': cartItems,'catagory':catagory})
 
+
+    product = Product.objects.all()
+    n= len(product)
+    nslides= n//4+ceil((n/4)+(n//4))
+
+    allprods= []
+    catprods= Product.objects.values('subcatagory', 'id')
+    cats = [item['subcatagory'] for item in catprods]
+    for cat in cats:
+        prod= Product.objects.filter(subcatagory= cat)
+        allprods.append([prod, range(1, nslides), nslides])
+    print(f" alprods[1]: {allprods}")
+    print(f"nslides{nslides}")
+    return render(request, 'store/store.html',{'product': allprods, 'cartItems': cartItems,'catagory':catagory})
+"""
+    Data = cartData(request)
+    cartItems = Data['cartItems']
+    catagory = SubCatagory.objects.all()
+
+
+    products = Product.objects.all()
+    allProds = []
+    catprods = Product.objects.values('subcatagory', 'id')
+    cats = {item["subcatagory"] for item in catprods}
+    for cat in cats:
+        prod = Product.objects.filter(subcatagory=cat)
+        n = len(prod)
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        allProds.append([prod, range(1, nSlides), nSlides])
+
+    params = {'allProds': allProds,'cartItems': cartItems,'catagory':catagory}
+    return render(request, "store/store.html", params)
 
 def checkout(request):
     Data = cartData(request)

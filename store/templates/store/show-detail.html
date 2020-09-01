@@ -46,12 +46,18 @@
  <h1>Feedback</h1>
 {% for review in review %}
   <div class="row">
-    <div class="col-sm-2" style="background-color:yellow;">
+    <div class="col-sm-2" >
 			{{review.user.username}}
     </div>
-    <div class="col-sm-10" style="background-color:pink;">
+    <div class="col-sm-6">
       {{review.userComment}}
-		<div>Delete</div>
+	</div>
+	  {% if user.username == review.user.username %}
+		<div class="col-sm-2">
+		Delete</div>
+			<div class="col-sm-2">Update</div>
+		</div>
+		{% endif %}
     </div>
 
   </div>
@@ -62,8 +68,7 @@
 
 <div class="row">
     <div class="col-sm-2" style="background-color:yellow;">
-		{% csrf_token %}
-
+	{% csrf_token %}
 	{{request.user}}
     </div>
     <div class="col-sm-10" style="background-color:pink;">
