@@ -19,16 +19,18 @@
 					<div style="flex:1"><strong>State</strong></div>
 					<div style="flex:1"><strong>Zip-code</strong></div>
 					<div style="flex:1"><strong>Date</strong></div>
+					<div style="flex:1"><strong>STATUS</strong></div>
 				</div>
 
                 <div class="cart-row">
 					<div style="flex:2"><p>{{orderitem.0.order.customer}}</p></div>
-					<div style="flex:2"><p>{{orderitem.0.order.customer}}</p></div>
-					<div style="flex:1"><p>{{orderitem.0.product.price|floatformat:2}}</p></div>
+					<div style="flex:2"><p></p></div>
+					<div style="flex:1"><p></p></div>
 					<div style="flex:1">
-						<p class="quantity">{{orderitem.0.quantity}}</p>
+						<p class="quantity"></p>
 					</div>
-					<div style="flex:1"><p>${{orderitem.0.get_total}}</p></div>
+					<div style="flex:1"><p></p></div>
+					<div style="flex:1"><p><form><input type="radio" name="deliver"> <input type="submit" value="delivered"></form></p></div>
 				</div>
 
 
@@ -64,8 +66,17 @@
 				</div>
 				{% endfor %}
 			</div>
-		</div>
+
+			<div class="cart-row">
+					<div style="flex:2"><strong></strong></div>
+					<div style="flex:2"><strong></strong></div>
+					<div style="flex:1"><strong></strong></div>
+					<div style="flex:1"><strong>{{orderitem.0.order.get_cart_items}}</strong></div>
+					<div style="flex:1"><strong>${{orderitem.0.order.get_cart_total}}</strong></div>
+				</div></div>
             {% endfor %}
+
+
 	</div>
 {% endblock content %}
 
