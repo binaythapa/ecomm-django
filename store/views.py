@@ -183,15 +183,20 @@ def profile(request):
 
     product= Product.objects.all()
     catagory = SubCatagory.objects.all()
-
-    #orderitem= Orderitem.objects.all()
-
     return render(request, 'store/profile.html',{'product': product, 'cartItems': cartItems,'catagory':catagory})
 
 def collection(request,id):
     Data = cartData(request)
     cartItems = Data['cartItems']
     catagory = SubCatagory.objects.all()
-
     product= Product.objects.filter(subcatagory=id)
     return render(request, 'store/catagory_product.html', {'product': product, 'cartItems': cartItems,'catagory':catagory})
+
+def showorder(request):
+    Data = cartData(request)
+    cartItems = Data['cartItems']
+    catagory = SubCatagory.objects.all()
+
+    orderitem= Orderitem.objects.all().order_by('date_added')
+    return render(request, 'store/show-order.html', {'orderitem':orderitem,'cartItems': cartItems,'catagory':catagory})
+

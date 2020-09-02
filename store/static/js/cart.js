@@ -4,21 +4,14 @@ var updateBtns= document.getElementsByClassName("update-cart");
                 updateBtns[i].addEventListener('click', function(){
                 var productId= this.dataset.product
                 var action= this.dataset.action
-
-
 if ( user == 'AnonymousUser'){
 addCookieItem(productId, action)
-}
-
 else
 {
 updateUserOrder(productId, action)
 } }) }
-
-
 function updateUserOrder(productId, action){
 var url= '/update_item/'
-
 fetch(url,{
     method: 'POST',
     headers:{
