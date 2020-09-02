@@ -1,0 +1,32 @@
+{% extends 'store/index.html' %}
+{% load static %}
+{% block content %}
+	<div class="row jumbotron products-container">
+		{% for product in product  %}
+		<div class="product-card">
+			<img class="thumbnail" src="{{product.imageURL}}">
+			<div class="box-element product">
+				<h6><strong>{{product.name}}</strong></h6>
+				<hr>
+				<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+				<a class="btn btn-outline-success" href="{% url 'show-detail' product.id %}">View</a>
+
+				<h4 style="display: inline-block; float: right"><strong>{{product.price}}</strong></h4>
+			</div>
+		</div>
+
+		{% endfor %}
+	</div>
+
+
+<script>
+jQuery('.products-container').slick({
+	slidesToShow: 3,
+  slidesToScroll: 2,
+  autoplay: true,
+  autoplaySpeed: 2000,
+	{% comment %} speed: 100, {% endcomment %}
+});
+console.log(document.querySelector('.products-container'));
+</script>
+{% endblock%}

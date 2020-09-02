@@ -1,0 +1,32 @@
+{% extends 'store/index.html' %}
+{% load static %}
+{% block content %}
+
+
+<table>
+
+<thead>
+
+    <tr>
+      <th scope="col">Product_name</th>
+      <th scope="col">Product_id</th>
+      <th scope="col">Product_image</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for orderitem in order %}
+    <tr>
+      <td>{{orderitem.product.name}}</td>
+      <td>{{orderitem.product.id}}</td>
+      <td><img class="thumbnail" src="{{orderitem.product.imageURL}}"></td>
+        <td><button onclick="updateProfile()">edit</button></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+
+</table>
+
+
+<script>
+</script>
+{% endblock%}
