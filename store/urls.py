@@ -14,7 +14,7 @@ urlpatterns = [
     path('query', views.search, name='search'),
     path('profile', views.profile, name='profile'),
     path('collection/<int:id>', views.collection, name='collection'),
-    path('showorder', views.showorder, name='show-order')
+    path('showorder/', views.showorder, name='show-order')
     #path('productentry/', views.productentry, name='product-entry')
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -128,9 +128,6 @@ def processOrder(request):
 
     else:
         customer, order= guestOrder(request, data)
-
-    # total = float(data['form']['total'])
-
         if order.shipping == True:
             ShippingAddress.objects.create(
                 customer=customer,
@@ -173,7 +170,6 @@ def showdetail(request, pk):
         review = userReview.objects.filter(product=pk)
     except:
         review= {}
-
     return render(request, 'store/show-detail.html', {'data':data, 'cartItems': cartItems, 'form': form, 'review': review,'product':product,'catagory':catagory })
 
 
@@ -197,6 +193,19 @@ def showorder(request):
     cartItems = Data['cartItems']
     catagory = SubCatagory.objects.all()
 
-    orderitem= Orderitem.objects.all().order_by('date_added')
-    return render(request, 'store/show-order.html', {'orderitem':orderitem,'cartItems': cartItems,'catagory':catagory})
+    orderitem = Orderitem.objects.all()
+    allProds = []
+    catprods = Orderitem.objects.values('order', 'id')
+    cats = {item["order"] for item in catprods}
+    for cat in cats:
+        prod = Orderitem.objects.filter(order=cat)
+        n = len(prod)
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        allProds.append([prod, range(1, nSlides), nSlides])
+        print(f"hello world...{allProds}")
+    params = {'allProds': allProds, 'cartItems': cartItems, 'catagory': catagory}
+    return render(request, "store/show-order.html", params)
+
+
+
 
