@@ -1,6 +1,11 @@
-{% extends 'store/main.html' %}
+{% extends 'store/abc.html' %}
 {% load static %}
-{% block content %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/mainn.css'%}">
+
+{%endblock%}
+
+{% block body %}
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="box-element">
@@ -10,9 +15,11 @@
 				<br>
 				<br>
 				<table class="table">
-					<tr>
-						<th><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>
-						<th><h5>Total:<strong> ${{order.get_cart_total}}</strong></h5></th>
+					<tr class="jumbotron">
+						<th><h5>Total Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+						<th><h5>Total:<strong> Rs. {{order.get_cart_total}}</strong></h5>(excluding discount)</th>
+						<th><h5>Discount:<strong> Rs. {{order.get_cart_discount_total|stringformat:"1.2f"|cut:"-"}}</strong></h5></th>
+						<th><h5>Net_total:<strong> Rs. {{order.get_cart_net_total|stringformat:"1.2f"|cut:"-"}}</strong></h5>(including discount)</th>
 						<th>
 							<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
 						</th>
@@ -25,16 +32,19 @@
 			<div class="box-element">
 				<div class="cart-row">
 					<div style="flex:2"></div>
-					<div style="flex:2"><strong>Item</strong></div>
-					<div style="flex:1"><strong>Price</strong></div>
-					<div style="flex:1"><strong>Quantity</strong></div>
-					<div style="flex:1"><strong>Total</strong></div>
+					<div style="flex:2">Item</div>
+					<div style="flex:1">Price</div>
+					<div style="flex:1">Quantity</div>
+					<div style="flex:1">Total</div>
+					<div style="flex:1">Discount</div>
+					<div style="flex:1"><strong>Net Total</strong></div>
 				</div>
 				{% for item in items %}
+
 				<div class="cart-row">
 					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
 					<div style="flex:2"><p>{{item.product.name}}</p></div>
-					<div style="flex:1"><p>{{item.product.price|floatformat:2}}</p></div>
+					<div style="flex:1"><p>{{item.product.price}}</p></div>
 					<div style="flex:1">
 						<p class="quantity">{{item.quantity}}</p>
 						<div class="quantity">
@@ -42,10 +52,12 @@
 							<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
 						</div>
 					</div>
-					<div style="flex:1"><p>${{item.get_total}}</p></div>
+					<div style="flex:1"><p>Rs. {{item.get_total}}</p></div>
+					<div style="flex:1"><p>Rs. {{item.get_discount_total|stringformat:"1.2f"|cut:"-"}}</p></div>
+					<div style="flex:1"><p><strong>Rs. {{item.get_net_total|stringformat:"1.2f"|cut:"-"}}</strong></p></div>
 				</div>
 				{% endfor %}
 			</div>
 		</div>
 	</div>
-{% endblock content %}
+{% endblock %}

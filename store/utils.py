@@ -53,6 +53,23 @@ def cartData(request):
         items = cookieData['items']
     return{'cartItems': cartItems, 'order':order, 'items': items}
 
+"""........wishlist,like and orderitem counter......."""
+def wishData(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order= Order.objects.filter(status= False)
+        like= Like.objects.all()
+        wishlist = Wishlist.objects.all().filter(customer=customer)
+        i = 0
+        total1 = sum([i + 1 for item in wishlist])
+        total2 = sum([i + 1 for item in order])
+        total3 = sum([i + 1 for item in like])
+    else:
+        total1, total2, total3= 0, 0, 0;
+    return{'wishItems': total1, 'orderItems': total2,'likeItems':total3}
+
+
+
 
 def guestOrder(request, data):
     print('user is not logged in.......')

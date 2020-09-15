@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'review.apps.ReviewConfig',
     'phone_field',
+    'crispy_forms',
+
 
 ]
 
@@ -83,7 +85,26 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+"""
+DATABASES = {
 
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'db5',
+
+        'USER': 'postgres',
+
+        'PASSWORD': 'admin',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432'
+    }
+}
+
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -133,3 +154,10 @@ MEDIA_URL = '/images/'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'store'
 LOGOUT_REDIRECT_URL = 'store'
+
+'''
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+)
+'''
+CRISPY_TEMPLATE_PACK = 'uni_form'

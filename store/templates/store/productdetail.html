@@ -1,0 +1,113 @@
+{% extends 'store/banner_base.html' %}
+{% load static %}
+
+{% block body %}
+     <div class="small-container single-product">
+       <div class="row">
+           <div class="col-2">
+               <img src="{{data.imageURL}}" width="100%" id="Product-Img">
+               <div class="small-img-row">
+                   <div class="small-img-col">
+                       <img src="{{data.imageL}}" width="100%" class="Small-Img">
+                   </div>
+                   <div class="small-img-col">
+                       <img src="{{data.imageR}}" width="100%" class="Small-Img">
+                   </div>
+                   <div class="small-img-col">
+                       <img src="{{data.imageB}}" width="100%" class="Small-Img">
+                   </div>
+
+               </div>
+           </div>
+
+           <div class="col-2">
+
+               <h3> {{data.name}}</h3>
+               <h4>${{data.price}}</h4>
+
+            <div class="flex-container">
+                           <div>
+                               <select>
+                                    <option>Select Size</option>
+                                    <option>XL</option>
+                                    <option>XXL</option>
+                                    <option>Large</option>
+                                    <option>Small</option>
+                                    <option>Medium</option>
+                               </select>
+                           </div>
+
+                          <div>
+                              <button data-product="{{data.id}}"  data-action="add" class="update-cart">
+                                  <img src="{%static 'images/cart.png'%}" width="25px" height="25px">
+                              </button>
+                          </div>
+                          <div>
+                              <button data-product="{{data.id}}"  class="wishlist">
+                                 <img src="{% static 'images/heart.png' %}" width="25px" height="25px">
+                              </button>
+                          </div>
+
+                            <div>
+                              <button data-product="{{data.id}}"  class="like">
+                                  {{commentItems}}
+                                 <img src="{% static 'images/comment.png' %}" width="25px" height="25px">
+                              </button>
+                          </div>
+                          <div>
+                              <button data-product="{{data.id}}"  class="like">
+                                  {{likeItems}}
+                                 <img src="{% static 'images/like.png' %}" width="25px" height="25px">
+                              </button>
+                          </div>
+
+            </div>
+
+
+               <h3>Product Details <i class="fa fa-indent"></i></h3>
+             <hr>
+               <h4>{{data.details}}</h4>
+           </div>
+       </div>
+   </div>
+
+    <!----title------>
+
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>Similar Products</h2>
+            <p>View More</p>
+        </div>
+    </div>
+
+
+
+<!----products------>
+     <div class="small-container">
+         <div class="row">
+{%for product in product%}
+              <div class="col-4">
+                  <a href="{% url 'show-detail' product.id %}">
+                      <img src={{product.imageURL}}></a>
+                          <div class="row">
+                             <p>{{product.name}}</p>
+                             <p>{{product.price}}</p>
+                          </div>
+                  <hr>
+                      <div class="row">
+                          <div class="col-3">
+                          <button data-product="{{product.id}}"  data-action="add"  class="update-cart">
+                          Add to cart
+                          </button></div>
+
+
+                          <button>
+                             <a href="{% url 'category'  %}" class="viewmore">View more</a></button>
+                      <a href=" " class="viewmore">View more</a></button>
+                      </div>
+                </div>
+
+{% endfor %}
+             </div>
+     </div>
+       {% endblock%}

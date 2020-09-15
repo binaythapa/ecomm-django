@@ -1,0 +1,29 @@
+{% extends 'store/banner_base.html' %}
+
+{% block body%}
+
+<br><br><br><br>
+    <main>
+        <div class="container">
+            <div class="row row_style">
+                <div class="col-xs-5 col-lg-offset-2">
+                   <form method="POST" enctype="multipart/form-data">
+                       {% csrf_token %}
+{{form.as_p}}
+                       {{form1.as_p}}
+
+                     <button type="submit" class="btn">Submit</button>
+                            </form>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <center>
+                Copyright © Lifestyle Store. All Rights Reserved and Contact Us: +91 90000 00000
+            </center>
+        </div>
+    </footer>
+{%endblock%}

@@ -1,0 +1,68 @@
+{% extends 'store/banner_base.html' %}
+{% load static %}
+
+{% block body %}
+
+     <div class="small-container" style="margin-top:20px;  ;">
+         <div class="row">
+             <h2>Your Wishes</h2>
+             <select>
+                 <option>Sort by Price</option>
+                  <option>Sort by date</option>
+                  <option>Sort by popularity</option>
+                  <option>Sort by sale</option>
+                 <option>Sort by rating</option>
+             </select>
+         </div>
+
+         <div class="row">
+            {% for wishlist in wishlist %}
+             {%if wishlist.product%}
+              <div class="col-4">
+                  <a href="{% url 'show-detail' wishlist.product.id %}">
+                      <img src={{wishlist.product.imageURL}}></a>
+
+
+                    <button data-product="{{wishlist.product.id}}"  class="delete">
+                         <img src="{% static 'images/delete.jpg' %}">
+                          </button>
+
+
+                  <div class="row">
+                     <p>{{wishlist.date_added}}</p>
+                     <p>{{wishlist.product.price}}</p>
+                  </div>
+                  <hr>
+                  <div class="row">
+                      <button data-product="{{wishlist.product.id}}"  data-action="add"  class="update-cart">
+                      Add to cart
+                      </button>
+                  </div>
+             </div>
+{% endif %}
+{% endfor %}
+    <!------------js for toggle menu---------->
+     <script>
+         var menuItems= document.getElementById("menuitem");
+         menuItems.style.maxHeight= '0px';
+
+         function menutoggle(){
+         if(menuItems.style.maxHeight == '0px'){
+         menuItems.style.maxHeight= '200px';
+         }
+         else{
+         menuItems.style.maxHeight= '0px';
+         }
+                  }
+
+/*------------delete wishlist item---------- */
+
+    var updateBtns= document.getElementsByClassName("delete");
+        for(var i=0; i<updateBtns.length; i++){
+                updateBtns[i].addEventListener('click', function(){
+                var productId= this.dataset.product
+                console.log("wishlist product id is", productId)
+                }
+                }
+     </script>
+  {% endblock %}

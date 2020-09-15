@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+{% extends 'store/banner_base.html' %}
+{% load static %}
+{% block body %}
+{% load crispy_forms_tags %}
+<!----------Account Page----------->
+     <div class="account-page">
+         <div class="container">
+             <div class="row">
+                 <div class="col-2">
+                     <img src="{% static 'images/image1.png' %}" width="100%">
+                 </div>
+
+                 <div class="col-2">
+                     <div class="form-container"><div class="form-btn">
+                        <span>Register</span>
+                     </div>
+
+                        <form method="post"  enctype="multipart/form-data">
+                                    {% csrf_token %}
+                            {% for fields in user_form %}
+                            {{fields.label}}:{{fields}}<br>
+
+                            {% endfor %}
+                            {% for fields in profile_form %}
+                            {{fields.label}}:{{fields}}<br>
+                            {% endfor %}
+
+                            {% for fields in supplier_form%}
+                            {{fields.label}}:{{fields}}<br>
+                            {% endfor %}
+
+                          <button type="submit">Submit</button>
+
+
+                         </form>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

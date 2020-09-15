@@ -1,0 +1,266 @@
+{% load static %}
+<DOCTYPE html>
+    <html>
+    <head>
+        <title>Learning Css</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="stylesheet" type="text/css" href="{% static 'css/mainn.css'%}">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,900;1,400;1,700&display=swap" rel="stylesheet">
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="{% static 'js/cart.js' %}"> </script>
+        <script type="text/javascript">
+
+        {% block css %}{% endblock %}
+
+	var user= '{{request.user}}';
+
+	function getToken(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	const csrftoken = getToken('csrftoken');
+	function getCookie(name){
+
+			//split cookie string and get all individual name = value pair in array
+			var cookieArr= document.cookie.split(".");
+
+			//loop through the array elements
+		 for(var i= 0; i<cookieArr.length; i++){
+			var cookiePair = cookieArr[i].split("=");
+
+			//removing whitespace at the begining of the cookie name and compare it with the cookie string
+			if(name == cookiePair[0].trim()){
+
+			//decode the cookie value and return
+			return decodeURIComponent(cookiePair[1]);
+			}
+			}
+			//return null if not found
+			  return null;
+			}
+
+		var cart = JSON.parse(getCookie(cart))
+		if(cart == undefined){
+				cart= {}
+				console.log('Cart was created successfully')
+				document.cookie= 'cart=' + JSON.stringify(cart)+ ";domain=;path=/"
+				console.log('cart:', cart)
+				}
+	</script>
+    </head>
+
+    <body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" width="125px">
+        </div>
+        <nav>
+            <ul id="menuitem">
+                    {% if messages %}
+                {% for messages in messages %}
+                <li id="message" style="color:yellow">{{messages}}</li>
+                {% endfor %}
+                {%endif%}
+                {% if user.is_authenticated %}
+                    <li><h3 style="color:yellow">Welcome, {{user}}</h3></li>
+                 {% endif %}
+                <li><a href="{% url 'store' %}">HOME</a></li>
+
+                {%if request.user.customer.supplier%}
+                 <li><a href="{% url 'add-product' %}">Add Product</a></li>
+                {% endif %}
+
+                 {% if user.is_authenticated %}
+                  <li><a href="{% url 'update-profile'%}">Profile</a></li>
+                 <li><a href="{%url 'logout'%}">Logout</a></li>
+                {% else %}
+                 <li><a href="{%url 'login'%}">Login</a></li>
+
+
+
+                <li> <a href="{%url 'c-register'%}">Customer</a></li>
+                <li> <a href="{%url 'add-supplier'%}">Supplier</a></li>
+
+
+                {% endif %}
+
+            </ul>
+        </nav>
+
+        {% if request.user.customer.supplier %}
+        <a href="{% url 'order' %}">
+        <img src="{% static 'images/delivery.png' %}" width="25px" height="25px">
+              </a>
+         <h3 class="cart-total">{{orderItems}}</h3>
+{% endif%}
+         {% if user.is_authenticated %}
+
+          <a href="{% url 'wishlist' %}">
+        <img src="{% static 'images/heart.png' %}" width="25px" height="25px">
+              </a>
+
+        <h3 class="cart-total">{{wishItems}}</h3>
+        <a href="{% url 'cart' %}">
+	    		<img  id="cart-icon" src="{% static 'images/cart.png' %}" height="25px" width="25px">
+            </a>
+	    	<h3 class="cart-total">{{cartItems}}</h3>
+        {% endif %}
+        <img src="{% static 'images/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+    </div>
+
+    <!------second navbar------->
+
+
+
+
+    <!----header----->
+
+<div class="header">
+    <div class="container">
+        <form  method="GET" action="/query" class="jpt">
+    <input  type="text" placeholder="Let me find products for you" name="q" class="text">
+    <button  type="submit" class="search"><img src="{% static 'images/search.jpg'%}" height="35px" width="35px"></button>
+             </form>
+
+
+{%block banner %}
+        {%endblock%}
+    </div>
+    </div>
+     {% block body %}
+        {% endblock %}
+     <!-----brands------>
+     <div class="brands">
+         <div class="small-containe.r">
+             <div class="row">
+                 <div class="col-5">
+                     <a href="{% url 'supplier' %}">
+                     <img src="{% static 'images/logo-oppo.png' %}">
+                     </a>
+                 </div>
+                 <div class="col-5">
+                     <img src="{% static 'images/logo-paypal.png' %}">
+                 </div>
+                 <div class="col-5">
+                     <img src="{% static 'images/logo-philips.png' %}">
+                 </div>
+                 <div class="col-5">
+                     <img src="{% static 'images/logo-coca-cola.png' %}">
+                 </div>
+                 <div class="col-5">
+                     <img src="{% static 'images/logo-godrej.png' %}">
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+                            <div class="footer">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="footer-col-1">
+                                            <h3>Download Our App</h3>
+                                            <p>Download App for Android and ios mobile phone</p>
+                                            <div class="app-logo">
+                                                <img src="{%static 'images/play-store.png' %}">
+                                                <img src="{% static 'images/app-store.png' %}">
+                                            </div>
+                                        </div>
+
+                                         <div class="footer-col-2">
+                                            <img src="{% static 'images/logo-white.png' %}">
+                                            <h3>Download Our App</h3>
+                                            <p>Download App for Android and ios mobile phonedffg dssfyj sdfrg</p>
+                                        </div>
+
+                                         <div class="footer-col-3">
+                                            <h3>Useful Links</h3>
+                                             <ul>
+                                                 <li>Coupens</li>
+                                                 <li>Blog Post</li>
+                                                 <li>Contact us</li>
+                                                 <li>About</li>
+                                             </ul>
+                                           </div>
+
+                                         <div class="footer-col-4">
+                                            <h3>Follow Us</h3>
+                                             <ul>
+                                                 <li>Facebook</li>
+                                                 <li>Twitter</li>
+                                                 <li>Instagram</li>
+                                                 <li>Youtube</li>
+                                             </ul>
+                                          </div>
+                                    </div>
+                                    <hr>
+                                    <p class="copyright">Copyright 2020- epraks.com</p>
+                                </div>
+                            </div>
+
+
+    <!------------js for toggle menu---------->
+     <script>
+         var menuItems= document.getElementById("menuitem");
+         menuItems.style.maxHeight= '0px';
+
+         function menutoggle(){
+         if(menuItems.style.maxHeight == '0px'){
+         menuItems.style.maxHeight= '200px';
+         }
+         else{
+         menuItems.style.maxHeight= '0px';
+         }
+         }
+     </script>
+
+
+     <!------------product gallary---------->
+
+    <script>
+        var ProductImg= document.getElementById("Product-Img");
+        var SmallImg= document.getElementsByClassName("Small-Img");
+
+        SmallImg[0].onclick= function(){
+        ProductImg.src= SmallImg[0].src;
+        }
+
+          SmallImg[1].onclick= function(){
+        ProductImg.src= SmallImg[1].src;
+        }
+
+          SmallImg[2].onclick= function(){
+        ProductImg.src= SmallImg[2].src;
+        }
+
+          SmallImg[3].onclick= function(){
+        ProductImg.src= SmallImg[3].src;
+        }
+    </script>
+    <script>
+ var message_ele = document.getElementById("message");
+
+setTimeout(function(){
+   message_ele.style.display = "none";
+}, 3000);
+
+    </script>
+
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"> </script>
+     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {% block js %} {% endblock %}
+    </body>
+    </html>

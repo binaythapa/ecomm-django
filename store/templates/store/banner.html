@@ -1,0 +1,186 @@
+{% extends 'store/banner_base.html' %}
+{% load static %}
+{% block banner %}
+        <div class="row">
+            <div class="col-2">
+                <h1>epraks.com<br> ecommerce platform</h1>
+                <p>Online solution for all kind of tradings</p>
+                <a class="btn"> Explore Now &#8594;</a>
+            </div>
+
+            <div class="col-2">
+                <img src="{% static 'images/image1.png' %}">
+            </div>
+        </div>
+{% endblock %}
+{% block body %}
+
+ <!----feature catagories--->
+
+     <div class="categories">
+         <div class="small-container">
+         <div class="row">
+
+             <div class="col-3">
+                 <img src="{% static 'images/category-1.jpg' %}">
+             </div>
+             <div class="col-3">
+                 <img src="{% static 'images/category-2.jpg' %}">
+             </div>
+             <div class="col-3">
+                 <img src="{% static 'images/category-3.jpg' %}">
+             </div>
+         </div>
+         </div>
+              </div>
+
+
+      <!----feature products--->
+     <div class="small-container">
+         <h2 class="title">Feature Products</h2>
+         <div class="row">
+            {% for product in product %}
+              <div class="col-4">
+                <a href="{% url 'show-detail' product.id %}">
+                      <img src={{product.imageURL}}></a>
+                  <div class="row">
+                     <p>{{product.name}}</p>
+                      <br>
+                     <p>Rs.{{product.price}}</p>
+                      <br>
+                      <p><b>{{product.discount}}% off</b></p>
+                  </div>
+                  <hr>
+                 <div class="flex-container">
+                          <div>
+                              <button data-product="{{product.id}}"  data-action="add" class="update-cart">
+                                  <img src="{%static 'images/cart.png'%}" width="25px" height="25px">
+                              </button>
+                          </div>
+                          <div>
+                              <button data-product="{{product.id}}"  class="wishlist">
+                                 <img src="{% static 'images/heart.png' %}" width="25px" height="25px">
+                              </button>
+                          </div>
+                          <div>
+                              <button>
+                                <a href="{% url 'category' %}"  class="viewmore">
+                                   <a href=" "  class="viewmore">
+                                    <img src="{% static 'images/forward-arrow.png' %}" width="25px" height="25px">
+                                </a>
+                              </button>
+                          </div>
+                 </div>
+             </div>
+
+            {% endfor %}
+
+             <!-------Latest Products------>
+                <h2 class="title">Latest Products</h2>
+         <div class="row">
+            {% for product in product %}
+              <div class="col-4">
+                <a href="{% url 'show-detail' product.id %}">
+                      <img src={{product.imageURL}}></a>
+                  <div class="row">
+                     <p>{{product.name}}</p>
+                     <p>Rs.{{product.price}}</p>
+                   <p><b>{{product.discount}}% off</b></p>
+                  </div>
+                  <hr>
+
+
+
+
+
+                  <div class="flex-container">
+                          <div>
+                              <button data-product="{{product.id}}"  data-action="add" class="update-cart">
+                                  <img src="{%static 'images/cart.png'%}" width="25px" height="25px">
+                              </button>
+                          </div>
+                          <div>
+                              <button data-product="{{product.id}}"  class="wishlist">
+                                 <img src="{% static 'images/heart.png' %}" width="25px" height="25px">
+                              </button>
+                          </div>
+                          <div>
+                              <button>
+                                <a href=" "  class="viewmore">
+                                    <img src="{% static 'images/forward-arrow.png' %}" width="25px" height="25px">
+                                </a>
+                              </button>
+                          </div>
+
+                            </div></div>
+
+{% endfor %}
+
+
+<!--offer--->
+     <div class="offer">
+         <div class="small-container">
+             <div class="row">
+                 <div class="col-2">
+
+                     <img src="{% static 'images/exclusive.png' %}" class="offer-img">
+                 </div>
+                 <div class="col-2">
+                     <p>Exclusively available on epraks.com</p>
+                     <h1>Smart band 4</h1>
+                     <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias aliquid error explicabo fuga maxime officiis .</small>
+                     <a href="" class="btn">Buy now &#8594;</a>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <!----testimonials--------->
+
+     <div class="testimonial">
+         <div class="small">
+             <div class="row">
+                 <div class="col-3">
+                     <i class="fa fa-quote-left" ></i>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.suam quas rem saepe sunt tenetur. A.</p>
+                     <div class="rating">
+                         <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                        <i class="fa fa-star-half-o"></i>
+                 </div>
+                     <img src="{% static 'images/user-1.png' %}">
+                     <h3>The girl</h3>
+                 </div>
+
+                 <div class="col-3">
+                     <i class="fa fa-quote-left" ></i>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.suam quas rem saepe sunt tenetur. A.</p>
+                     <div class="rating">
+                         <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                        <i class="fa fa-star-half-o"></i>
+                 </div>
+                     <img src="{% static 'images/user-1.png' %}">
+                     <h3>The girl</h3>
+                 </div>
+
+                 <div class="col-3">
+                     <i class="fa fa-quote-left" ></i>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.suam quas rem saepe sunt tenetur. A.</p>
+                     <div class="rating">
+                         <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                          <i class="fa fa-star" ></i>
+                        <i class="fa fa-star-half-o"></i>
+                 </div>
+                     <img src="{% static 'images/user-1.png' %}">
+                     <h3>The girl</h3>
+                 </div>
+             </div>
+         </div>
+     </div>
+             {% endblock body %}

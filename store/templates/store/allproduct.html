@@ -1,0 +1,51 @@
+{% extends 'store/banner_base.html' %}
+{% load static %}
+
+{% block body %}
+
+     <div class="small-container" style="margin-top:20px;  ;">
+         <div class="row">
+             <h2>All Products</h2>
+             <select>
+                 <option>Sort by Price</option>
+                  <option>Sort by date</option>
+                  <option>Sort by popularity</option>
+                  <option>Sort by sale</option>
+                 <option>Sort by rating</option>
+             </select>
+         </div>
+
+         <div class="row">
+            {% for product in product %}
+              <div class="col-4">
+                  <a href="{% url 'show-detail' product.id %}">
+                      <img src={{product.imageURL}}></a>
+                  <div class="row">
+                     <p>{{product.name}}</p>
+                     <p>{{product.price}}</p>
+                  </div>
+                  <hr>
+                  <div class="row">
+                        <p></p>
+                      <button data-product="{{i.id}}"  data-action="add"  update-cart">
+                      Add to cart
+                      </button>
+                  </div>
+             </div>
+
+{% endfor %}
+    <!------------js for toggle menu---------->
+     <script>
+         var menuItems= document.getElementById("menuitem");
+         menuItems.style.maxHeight= '0px';
+
+         function menutoggle(){
+         if(menuItems.style.maxHeight == '0px'){
+         menuItems.style.maxHeight= '200px';
+         }
+         else{
+         menuItems.style.maxHeight= '0px';
+         }
+                  }
+     </script>
+  {% endblock %}

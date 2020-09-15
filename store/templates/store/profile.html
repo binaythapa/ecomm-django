@@ -1,56 +1,108 @@
-{% extends 'store/index.html' %}
+{% extends 'store/banner_base.html' %}
 {% load static %}
-{% block content %}
+{% block body %}
+{% load crispy_forms_tags %}
+<!----------Account Page----------->
+     <div class="account-page">
+         <div class="container">
+             <div class="row">
+                 <div class="col-2">
+                     <img src="{% static 'images/image1.png' %}" width="100%">
+                 </div>
 
-<table class="table">
-  <thead>
-    <tr>
+                 <div class="col-2">
+                     <div class="form-container"><div class="form-btn">
+                        <span onclick="login()">Detail</span>
+                         <span onclick="register()">Edit</span>
+                         <hr id="Indicator">
+                     </div>
 
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Contact</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{request.user.username}}</td>
-      <td>{{request.user.email}}</td>
-      <td>{{request.user.customer.phone}}</td>
-        <td><a href="edit_profile">edit</a></td>
-    </tr>
-  </tbody>
-</table>
-<hr>
+                          <form id="LoginForm">
+                            <div class="row">
+                                <div class="col-1">
+                                    <b>First_name:</b> {{request.user.first_name}}
+                                    </div>
+                                <hr>
+                                <div class="col-1">
+                                    <b>Last_name</b>: {{ request.user.last_name}}
+                                    </div>
+                                <div class="col-1">
+                                    <b>Username</b> :{{ request.user.username}}
+                                    </div>
+                                <div class="col-1">
+                                    <b> Email</b> :{{ request.user.email}}
+                                    </div>
+                                <div class="col-1">
+                                    <b>Contact</b> :{{ customer.phone}}
+                                </div>
+                                {%if customer.image%}
+                                <div class="col-1">
+                                    <b>Profile Pic</b> <img src={{customer.image.url}}></a>
+                                </div>
+                                {% endif %}
+                                </div>
 
-      <div class="row jumbotron">
-            <div class="col">
-                <h1>Your Pending Order</h1>
-            </div>
-            <div class="col">
-                <h1>Your Successful Order</h1>
-            </div>
-      </div>
+                             </form>
 
 
 
+
+
+
+
+                         <form  id="RegForm" method="POST">
+                                {% csrf_token %}
+<!--
+                              First_name: {{ user_form.first_name}}
+                              Last_name: {{ user_form.last_name}}
+                              Username: {{ user_form.username}}
+                              E-mail:{{ user_form.email}}
+                              Profile Pic: {{ profile_form.image}}
+                              Contact: {{ profile_form.phone}}
+-->
+
+                                {{ user_form|crispy }}
+                                 {{ profile_form|crispy }}
+                             <button type="submit" class="btn">Update</button>
+
+                         </form>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
 <div class="row">
-		{% for product in product  %}
-		<div class="col-lg-4">
-			<img class="thumbnail" src="{{product.imageURL}}">
-			<div class="box-element product">
-				<h6><strong>{{product.name}}</strong></h6>
-				<hr>
-				<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-				<a class="btn btn-outline-success" href="{% url 'show-detail' product.id %}">View</a>
+                        <table>
+                                <tr><div class="col-3">
+                                    <th>Name</th></div>
+                                    <div class="col-3">
+                                    <th>Price</th></div><div class="col-3">
+                                    <th>Quantity</th></div>
+                                </tr>
+                            {%for orderitem in orderitem%}
+                                 <tr>
+                                    <td>{{orderitem.product.name}}</td>
+                                    <td>{{orderitem.product.price}}</td>
+                                    <td>{{orderitem.order.quantity}}</td>
+                                </tr>
+                                {% endfor %}
+                        </table></div>
 
-				<h4 style="display: inline-block; float: right"><strong>{{product.price}}</strong></h4>
-			</div>
-		</div>
+ <script>
+var LoginForm= document.getElementById("LoginForm");
+        var RegForm= document.getElementById("RegForm");
+        var Indicator= document.getElementById("Indicator");
 
-		{% endfor %}
+    function  register(){
+     RegForm.style.transform= "translateX(0px)";
+     LoginForm.style.transform= "translateX(0px)";
+     Indicator.style.transform= "translateX(100px)";
+      }
 
-
-
-<script>
+     function login(){
+     RegForm.style.transform= "translateX(300px)";
+     LoginForm.style.transform= "translateX(300px)";
+     Indicator.style.transform= "translateX(0px)";
+      }
 </script>
-{% endblock%}
+ {% endblock %}
